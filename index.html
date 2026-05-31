@@ -28,8 +28,8 @@ html{scroll-behavior:smooth;}
 body{background:var(--black);color:var(--off-white);font-family:'Barlow',sans-serif;font-weight:400;line-height:1.6;overflow-x:hidden;}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:112px;background:rgba(13,13,13,0.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.06);}
-.nav-logo img{height:96px;width:auto;display:block;filter:drop-shadow(0 2px 12px rgba(212,169,58,0.45));transition:filter 0.2s;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:76px;background:rgba(13,13,13,0.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.06);}
+.nav-logo img{height:52px;width:auto;display:block;filter:drop-shadow(0 2px 12px rgba(212,169,58,0.45));transition:filter 0.2s;}
 .nav-links{display:flex;gap:32px;list-style:none;}
 .nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--light);text-decoration:none;transition:color 0.2s;}
 .nav-links a:hover{color:var(--accent-bright);}
@@ -45,16 +45,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .btn-white:hover{background:var(--off-white);}
 
 /* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 64px 100px;position:relative;overflow:hidden;background:var(--black);}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:76px 64px 100px;position:relative;overflow:hidden;background:var(--black);}
 .hero-grid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(212,169,58,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(212,169,58,0.035) 1px,transparent 1px);background-size:64px 64px;}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,13,1) 0%,rgba(13,13,13,0.6) 40%,rgba(13,13,13,0.1) 100%);z-index:1;}
 
 .hero-icon{
   position:absolute;
-  right:-88px;
+  right:5%;
   top:50%;
   transform:translateY(-50%);
-  width:min(660px, 55vw);
+  width:min(500px, 40vw);
   height:auto;
   z-index:3;
   opacity:1;
