@@ -720,7 +720,7 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 60);
 }, {passive: true});
 
-const tickerItems = ['Individual Athletes','Team Partnerships','Athletic Departments','Baseball','Basketball','Softball','Soccer','Football','Golf','Tennis','Volleyball','Science-Based Training','CSCS Certified','Seasonal Planning','Built for Competitors'];
+const tickerItems = ['Individual Athletes','Team Partnerships','Athletic Departments','Baseball','Basketball','Softball','Soccer','Football','Golf','Tennis','Volleyball','Wrestling','Cheer','Lacrosse','Science-Based Training','CSCS Certified','Seasonal Planning','Built for Competitors'];
 const track = document.getElementById('ticker');
 const chunk = tickerItems.map(t=>`<span class="ticker-item">${t}</span><span class="ticker-dot">·</span>`).join('');
 track.innerHTML = chunk + chunk;
@@ -777,7 +777,7 @@ const TIERS = {
   tier3: { label: 'Tier 3 — Premium Coaching', price: '$250/month', payLink: 'https://connect.intuit.com/portal/app/CommerceNetwork/view/scs-v1-6713d358f904461c98d56efe18ce730b4c04b01dd387475e901f2be9c9f416afd4fffacaa7254938838ac72c036ea910?locale=EN_US&cta=copylistmultilink' }
 };
 
-const SPORTS = ['Basketball','Baseball','Softball','Football','Soccer','Volleyball','Wrestling','Lacrosse','Tennis','Golf','Other'];
+const SPORTS = ['Basketball','Baseball','Softball','Football','Soccer','Volleyball','Wrestling','Cheer','Lacrosse','Tennis','Golf','Other'];
 
 function openCheckout(tierKey) {
   document.getElementById('checkout-tier-label').textContent = TIERS[tierKey].label;
