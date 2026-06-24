@@ -1004,6 +1004,7 @@ function openCheckout(tierKey) {
   document.getElementById('pay-tier-label').textContent = TIERS[tierKey].label;
   document.getElementById('pay-tier-price').textContent = TIERS[tierKey].price;
   document.getElementById('checkout-modal').setAttribute('data-tier', tierKey);
+  window._athleteInfoSent = false;
   showStep(1);
   document.getElementById('checkout-modal').classList.add('active');
   document.body.style.overflow = 'hidden';
@@ -1052,6 +1053,52 @@ function validateStep1() {
   return true;
 }
 
+// Send the Step 1 athlete info to Spencer (ssplaymaka@gmail.com) via Web3Forms.
+// Fires when they click "Continue to Waiver" so Spencer gets the lead even if
+// the person never finishes the waiver or payment.
+async function sendAthleteInfo() {
+  if (window._athleteInfoSent) return;
+
+  const val = id => document.getElementById(id).value.trim();
+  const age = parseInt(val('athlete-age'));
+  const sports = Array.from(document.querySelectorAll('.sport-chip.selected'))
+    .map(c => c.textContent).join(', ') || 'N/A';
+  const tierKey = document.getElementById('checkout-modal').getAttribute('data-tier');
+  const tierLabel = (TIERS[tierKey] && TIERS[tierKey].label) || tierKey || 'N/A';
+
+  const payload = {
+    access_key: WEB3FORMS_ACCESS_KEY,
+    subject: 'New Playmaka Signup — ' + val('athlete-name'),
+    from_name: 'Playmaka Signup',
+    'Tier': tierLabel,
+    'Athlete Name': val('athlete-name'),
+    'Age': val('athlete-age'),
+    'Grade': val('athlete-grade'),
+    'Athlete Email': val('athlete-email'),
+    'Athlete Phone': val('athlete-phone'),
+    'Sport(s)': sports
+  };
+
+  if (!isNaN(age) && age < 18) {
+    payload['Parent/Guardian Name'] = val('parent-name') || 'N/A';
+    payload['Parent Email'] = val('parent-email') || 'N/A';
+    payload['Parent Phone'] = val('parent-phone') || 'N/A';
+  }
+
+  window._athleteInfoSent = true; // optimistic, so we never double-send on this session
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (!data.success) window._athleteInfoSent = false; // allow retry on next click
+  } catch (err) {
+    window._athleteInfoSent = false; // allow retry on next click
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   // Mobile nav toggle
   const navToggle = document.getElementById('nav-toggle');
@@ -1090,7 +1137,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Step 1 next
   document.getElementById('step1-next').addEventListener('click', () => {
-    if (validateStep1()) showStep(2);
+    if (validateStep1()) { sendAthleteInfo(); showStep(2); }
   });
 
   // Step 2 next (waiver)
